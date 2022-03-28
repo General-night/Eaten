@@ -6,9 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 通用响应类，将响应结果封装到Result类
+ *
  * @author GeneralNight
  * @date 2022/3/27 14:41
- * @description 通用响应类，将响应结果封装到Result类
  */
 @Data
 public class Result<T> {
@@ -51,6 +52,5 @@ public class Result<T> {
         this.map.put(key, value);
         return this;
     }
-
 }
 

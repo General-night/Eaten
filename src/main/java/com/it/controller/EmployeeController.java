@@ -30,7 +30,7 @@ public class EmployeeController {
 
         // 如果登录成功，设置session
         if (res.getCode() == 1) {
-            session.setAttribute("employee", res.getData().getId());
+            session.setAttribute("empId", res.getData().getId());
         }
 
         return res;
