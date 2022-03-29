@@ -55,4 +55,30 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         // 5、返回登录成功响应对象
         return Result.success(emp);
     }
+
+    /**
+     * 添加员工信息
+     *
+     * @param employee 员工信息
+     * @param empId    当前登录者 ID
+     * @return 是否添加成功
+     */
+    @Override
+    public Result<String> addEmployee(Employee employee, Long empId) {
+
+        // 设置默认密码
+        // 获取身份证后六位充当默认密码，并用 MD5 进行加密
+        String idCard = employee.getIdNumber();
+        String pwd = DigestUtils.md5DigestAsHex(idCard.substring(12).getBytes());
+        employee.setPassword(pwd);
+
+        // 设置创建者和修改者
+        employee.setCreateUser(empId);
+        employee.setUpdateUser(empId);
+
+        // 添加员工
+        save(employee);
+
+        return Result.success(null);
+    }
 }
