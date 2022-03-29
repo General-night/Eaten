@@ -1,6 +1,8 @@
 package com.it.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.it.common.Result;
 import com.it.entity.Employee;
@@ -80,5 +82,32 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         save(employee);
 
         return Result.success(null);
+    }
+
+    /**
+     * 初始化或根据员工昵称模糊查询，并对结果集进行分页处理
+     *
+     * @param page     当前页码
+     * @param pageSize 每页条数
+     * @param name     员工昵称
+     * @return 分页器
+     */
+    @Override
+    public IPage<Employee> page(Integer page, Integer pageSize, String name) {
+
+        // 创建分页器对象
+        IPage<Employee> pageInfo = new Page<>(page, pageSize);
+
+        // 创建条件查询对象
+        LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(StringUtils.isNotBlank(name), Employee::getName, name);
+
+        // 设置排序规则
+        queryWrapper.orderByDesc(Employee::getUpdateTime);
+
+        // 执行分页查询
+        page(pageInfo, queryWrapper);
+
+        return pageInfo;
     }
 }

@@ -1,14 +1,13 @@
 package com.it.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.it.common.Result;
 import com.it.entity.Employee;
 import com.it.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -88,5 +87,27 @@ public class EmployeeController {
         log.info("添加员工，出参：{}", res);
 
         return res;
+    }
+
+    /**
+     * 初始化或根据员工昵称模糊查询，并对结果集进行分页处理
+     *
+     * @param page     当前页码
+     * @param pageSize 每页条数
+     * @param name     员工昵称
+     * @return 分页器
+     */
+    @GetMapping("page")
+    public Result<IPage<Employee>> page(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                        @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+                                        String name) {
+
+        log.info("分页查询，入参：page={}，pageSize={}，name={}", page, pageSize, name);
+
+        IPage<Employee> pageInfo = employeeService.page(page, pageSize, name);
+
+        log.info("分页查询，出参：pageInfo={}", JSON.toJSONString(pageInfo));
+
+        return Result.success(pageInfo);
     }
 }

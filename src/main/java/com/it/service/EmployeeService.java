@@ -1,5 +1,6 @@
 package com.it.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.it.common.Result;
 import com.it.entity.Employee;
@@ -26,4 +27,14 @@ public interface EmployeeService extends IService<Employee> {
      * @return 是否添加成功
      */
     Result<String> addEmployee(Employee employee, Long empId);
+
+    /**
+     * 初始化或根据员工昵称模糊查询，并对结果集进行分页处理
+     *
+     * @param page     当前页码
+     * @param pageSize 每页条数
+     * @param name     员工昵称
+     * @return 分页器
+     */
+    IPage<Employee> page(Integer page, Integer pageSize, String name);
 }
