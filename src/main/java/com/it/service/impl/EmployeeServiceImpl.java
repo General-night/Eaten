@@ -125,8 +125,34 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public Result<String> update(Employee employee) {
 
-        updateById(employee);
+        String username = employee.getUsername();
+        //Employee emp = getOne(
+        //        new LambdaQueryWrapper<Employee>().eq(Employee::getUsername, username)
+        //);
+        //if (!ObjectUtils.equals(emp, null)) {
+        //    throw new ConsumerException(username + " 账号已存在");
+        //}
+
+        try {
+            updateById(employee);
+        } catch (Exception e) {
+            throw new ConsumerException(username + " 账号已存在");
+        }
 
         return Result.success(null);
+    }
+
+    /**
+     * 根据指定ID获取员工信息
+     *
+     * @param id 指定的ID
+     * @return 指定ID员工的信息
+     */
+    @Override
+    public Result<Employee> getEmpById(Long id) {
+
+        Employee emp = getById(id);
+
+        return Result.success(emp);
     }
 }

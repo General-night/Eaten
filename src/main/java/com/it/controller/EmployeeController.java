@@ -109,6 +109,12 @@ public class EmployeeController {
         return Result.success(pageInfo);
     }
 
+    /**
+     * 根据指定ID修改员工信息
+     *
+     * @param employee 指定更新员工的信息
+     * @return Result响应对象
+     */
     @PutMapping
     public Result<String> update(@RequestBody Employee employee) {
         log.info("更新员工信息，入参：{}", employee);
@@ -116,6 +122,25 @@ public class EmployeeController {
         Result<String> res = employeeService.update(employee);
 
         log.info("更新员工信息，出参：{}", JSON.toJSONString(res));
+
+        return res;
+    }
+
+
+    /**
+     * 根据指定ID获取员工信息
+     *
+     * @param id 指定的ID
+     * @return 指定ID员工的信息
+     */
+    @GetMapping("{id}")
+    public Result<Employee> getEmpById(@PathVariable Long id) {
+
+        log.info("数据回显，入参：{}", id);
+
+        Result<Employee> res = employeeService.getEmpById(id);
+
+        log.info("数据回显，出参：{}", JSON.toJSONString(res));
 
         return res;
     }

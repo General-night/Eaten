@@ -46,4 +46,12 @@ public interface EmployeeService extends IService<Employee> {
      * @return Result响应对象
      */
     Result<String> update(Employee employee);
+
+    /**
+     * 根据指定ID获取员工信息
+     *
+     * @param id 指定的ID
+     * @return 指定ID员工的信息
+     */
+    Result<Employee> getEmpById(Long id);
 }
