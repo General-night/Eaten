@@ -11,6 +11,7 @@ import com.it.entity.Employee;
  * @description 员工业务层
  */
 public interface EmployeeService extends IService<Employee> {
+
     /**
      * 员工登录业务
      *
@@ -36,4 +37,13 @@ public interface EmployeeService extends IService<Employee> {
      * @return 分页器
      */
     IPage<Employee> page(Integer page, Integer pageSize, String name);
+
+
+    /**
+     * 根据指定的ID更新员工信息
+     *
+     * @param employee 指定更新员工的信息
+     * @return Result响应对象
+     */
+    Result<String> update(Employee employee);
 }

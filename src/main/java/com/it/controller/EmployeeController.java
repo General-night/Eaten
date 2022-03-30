@@ -108,4 +108,15 @@ public class EmployeeController {
 
         return Result.success(pageInfo);
     }
+
+    @PutMapping
+    public Result<String> update(@RequestBody Employee employee) {
+        log.info("更新员工信息，入参：{}", employee);
+
+        Result<String> res = employeeService.update(employee);
+
+        log.info("更新员工信息，出参：{}", JSON.toJSONString(res));
+
+        return res;
+    }
 }

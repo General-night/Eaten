@@ -115,4 +115,18 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
         return pageInfo;
     }
+
+    /**
+     * 根据指定的ID更新员工信息
+     *
+     * @param employee 指定更新员工的信息
+     * @return Result响应对象
+     */
+    @Override
+    public Result<String> update(Employee employee) {
+
+        updateById(employee);
+
+        return Result.success(null);
+    }
 }
