@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.it.common.Result;
 import com.it.entity.Employee;
+import com.it.exception.ConsumerException;
 import com.it.mapper.EmployeeMapper;
 import com.it.service.EmployeeService;
 import org.apache.commons.lang.ObjectUtils;
@@ -67,6 +68,15 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
      */
     @Override
     public Result<String> addEmployee(Employee employee, Long empId) {
+
+        // 判断员工账号是否存在
+        String username = employee.getUsername();
+        Employee emp = getOne(
+                new LambdaQueryWrapper<Employee>().eq(Employee::getUsername, username)
+        );
+        if (!ObjectUtils.equals(emp, null)) {
+            throw new ConsumerException(username + " 账号已存在");
+        }
 
         // 设置默认密码
         // 获取身份证后六位充当默认密码，并用 MD5 进行加密
