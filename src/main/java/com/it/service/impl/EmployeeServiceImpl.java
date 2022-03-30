@@ -63,11 +63,10 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
      * 添加员工信息
      *
      * @param employee 员工信息
-     * @param empId    当前登录者 ID
      * @return 是否添加成功
      */
     @Override
-    public Result<String> addEmployee(Employee employee, Long empId) {
+    public Result<String> addEmployee(Employee employee) {
 
         // 判断员工账号是否存在
         String username = employee.getUsername();
@@ -83,10 +82,6 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         String idCard = employee.getIdNumber();
         String pwd = DigestUtils.md5DigestAsHex(idCard.substring(12).getBytes());
         employee.setPassword(pwd);
-
-        // 设置创建者和修改者
-        employee.setCreateUser(empId);
-        employee.setUpdateUser(empId);
 
         // 添加员工
         save(employee);

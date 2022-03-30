@@ -73,16 +73,14 @@ public class EmployeeController {
      * 添加员工
      *
      * @param employee 员工信息
-     * @param session  当前登录者 ID
      * @return 是否添加成功
      */
     @PostMapping
-    public Result<String> addEmployee(@RequestBody Employee employee, HttpSession session) {
+    public Result<String> addEmployee(@RequestBody Employee employee) {
 
         log.info("添加员工，入参：{}", employee);
 
-        Long empId = (Long) session.getAttribute("empId");
-        Result<String> res = employeeService.addEmployee(employee, empId);
+        Result<String> res = employeeService.addEmployee(employee);
 
         log.info("添加员工，出参：{}", res);
 

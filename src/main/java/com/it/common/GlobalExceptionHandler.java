@@ -25,6 +25,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ConsumerException.class)
     public Result<String> consumerExceptionHandler(ConsumerException ce) {
         log.error("异常：{}", ce.getMessage());
+
         return Result.error(ce.getMessage());
     }
 
@@ -37,6 +38,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public Result<String> exceptionHandler(Exception e) {
         log.error("异常：{}", e.getMessage());
+
         return Result.error("未知异常");
     }
 }

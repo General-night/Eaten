@@ -23,10 +23,9 @@ public interface EmployeeService extends IService<Employee> {
      * 添加员工信息
      *
      * @param employee 员工信息
-     * @param empId    当前登录者 ID
      * @return 是否添加成功
      */
-    Result<String> addEmployee(Employee employee, Long empId);
+    Result<String> addEmployee(Employee employee);
 
     /**
      * 初始化或根据员工昵称模糊查询，并对结果集进行分页处理
