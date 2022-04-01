@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 /**
+ * 员工控制层
+ *
  * @author GeneralNight
  * @date 2022/3/27 12:56
- * @description 员工控制层
  */
 
 @Slf4j
@@ -125,7 +126,6 @@ public class EmployeeController {
 
         return res;
     }
-
 
     /**
      * 根据指定ID获取员工信息
