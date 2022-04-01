@@ -15,10 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 /**
+ * 员工业务层实现类
+ *
  * @author GeneralNight
  * @date 2022/3/27 12:58
- * @description
  */
+
 @Service
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> implements EmployeeService {
     /**

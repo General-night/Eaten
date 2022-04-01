@@ -6,9 +6,10 @@ import com.it.common.Result;
 import com.it.entity.Employee;
 
 /**
+ * 员工业务层接口
+ *
  * @author GeneralNight
  * @date 2022/3/27 12:58
- * @description 员工业务层
  */
 public interface EmployeeService extends IService<Employee> {
 
@@ -37,7 +38,7 @@ public interface EmployeeService extends IService<Employee> {
      * @return 分页器
      */
     IPage<Employee> page(Integer page, Integer pageSize, String name);
-    
+
     /**
      * 根据指定的ID更新员工信息
      *

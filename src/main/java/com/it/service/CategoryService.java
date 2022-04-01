@@ -22,4 +22,20 @@ public interface CategoryService extends IService<Category> {
      * @return 查询数据
      */
     Result<IPage<Category>> page(Integer page, Integer pageSize);
+
+    /**
+     * 添加分类
+     *
+     * @param category 分类信息
+     * @return 是否成功
+     */
+    Result<String> addCategory(Category category);
+
+    /**
+     * 根据ID删除分类信息
+     *
+     * @param id 指定的ID值
+     * @return 是否删除成功
+     */
+    Result<String> removeById(Long id);
 }

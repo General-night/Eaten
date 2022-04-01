@@ -7,10 +7,7 @@ import com.it.entity.Category;
 import com.it.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 分类控制层
@@ -43,6 +40,42 @@ public class CategoryController {
         Result<IPage<Category>> res = service.page(page, pageSize);
 
         log.info("分类管理页面初始化，出参：{}", JSON.toJSONString(res));
+
+        return res;
+    }
+
+    /**
+     * 添加分类
+     *
+     * @param category 分类信息
+     * @return 是否成功
+     */
+    @PostMapping
+    public Result<String> addCategory(@RequestBody Category category) {
+
+        log.info("添加分类，入参：{}", JSON.toJSONString(category));
+
+        Result<String> res = service.addCategory(category);
+
+        log.info("添加分类，出参：{}", JSON.toJSONString(res));
+
+        return res;
+    }
+
+    /**
+     * 根据ID删除分类信息
+     *
+     * @param id 指定的ID值
+     * @return 是否删除成功
+     */
+    @DeleteMapping
+    public Result<String> removeById(Long id) {
+
+        log.info("删除分类，入参：ID = {}", id);
+
+        Result<String> res = service.removeById(id);
+
+        log.info("删除分类，入参：{}", JSON.toJSONString(res));
 
         return res;
     }
