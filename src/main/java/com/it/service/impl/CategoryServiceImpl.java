@@ -96,12 +96,32 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
         // 如果关联则抛出业务层异常
         if (count1 > 0 || count2 > 0) {
-            throw new ConsumerException("该类已有关联数据，禁止删除");
+            throw new ConsumerException("当前分类已有关联数据，禁止删除");
         }
 
         // 如果没有关联数据，则执行分类删除
         super.removeById(id);
 
         return Result.success("删除成功");
+    }
+
+    /**
+     * 根据ID修改分类信息
+     *
+     * @param category 要修改的信息
+     * @return 是否修改成功
+     */
+    @Override
+    public Result<String> update(Category category) {
+
+        String name = category.getName();
+
+        try {
+            updateById(category);
+        } catch (Exception e) {
+            throw new ConsumerException(name + " 分类已存在");
+        }
+
+        return Result.success("修改成功");
     }
 }

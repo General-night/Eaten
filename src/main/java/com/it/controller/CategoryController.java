@@ -79,4 +79,24 @@ public class CategoryController {
 
         return res;
     }
+
+
+    /**
+     * 根据ID修改分类信息
+     *
+     * @param category 要修改的信息
+     * @return 是否修改成功
+     */
+    @PutMapping
+    public Result<String> updateById(@RequestBody Category category) {
+
+        log.info("修改分类信息，入参：{}", category);
+
+        Result<String> res = service.update(category);
+
+        log.info("修改分类信息，出参：{}", JSON.toJSONString(res));
+
+        return res;
+        
+    }
 }

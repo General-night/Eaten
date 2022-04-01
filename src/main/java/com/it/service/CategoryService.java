@@ -38,4 +38,12 @@ public interface CategoryService extends IService<Category> {
      * @return 是否删除成功
      */
     Result<String> removeById(Long id);
+
+    /**
+     * 根据ID修改分类信息
+     *
+     * @param category 要修改的信息
+     * @return 是否修改成功
+     */
+    Result<String> update(Category category);
 }
