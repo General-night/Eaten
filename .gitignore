@@ -2,6 +2,7 @@
 .iml
 .git
 target
+src/main/resources/upload
 
 # Compiled class file
 *.class
