@@ -1,7 +1,7 @@
-package com.it.mapper;
+package com.it.mapper.backend;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.it.entity.Category;
+import com.it.entity.backend.Category;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

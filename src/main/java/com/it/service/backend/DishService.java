@@ -1,7 +1,7 @@
-package com.it.service;
+package com.it.service.backend;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.it.entity.Dish;
+import com.it.entity.backend.Dish;
 
 /**
  * @author NightGeneral

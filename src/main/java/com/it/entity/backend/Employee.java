@@ -1,4 +1,4 @@
-package com.it.entity;
+package com.it.entity.backend;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -8,53 +8,39 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 分类实体类
- *
- * @author NightGeneral
+ * @author GeneralNight
+ * @date 2022/3/27 12:54
+ * @description 员工实体类
  */
 @Data
-public class Category implements Serializable {
-
+public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private Long id;
 
-    /**
-     * 类型 1 菜品分类 2 套餐分类
-     */
-    private Integer type;
+    private String username;
 
-    /**
-     * 分类名称
-     */
     private String name;
 
-    /**
-     * 顺序
-     */
-    private Integer sort;
+    private String password;
 
-    /**
-     * 创建时间
-     */
+    private String phone;
+
+    private String sex;
+
+    private String idNumber;
+
+    private Integer status;
+
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    /**
-     * 更新时间
-     */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
-    /**
-     * 创建人
-     */
     @TableField(fill = FieldFill.INSERT)
     private Long createUser;
 
-    /**
-     * 修改人
-     */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
 }

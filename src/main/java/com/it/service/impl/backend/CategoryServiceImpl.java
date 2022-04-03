@@ -1,18 +1,18 @@
-package com.it.service.impl;
+package com.it.service.impl.backend;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.it.common.Result;
-import com.it.entity.Category;
-import com.it.entity.Dish;
-import com.it.entity.Setmeal;
+import com.it.entity.backend.Category;
+import com.it.entity.backend.Dish;
+import com.it.entity.backend.Setmeal;
 import com.it.exception.ConsumerException;
-import com.it.mapper.CategoryMapper;
-import com.it.service.CategoryService;
-import com.it.service.DishService;
-import com.it.service.SetmealService;
+import com.it.mapper.backend.CategoryMapper;
+import com.it.service.backend.CategoryService;
+import com.it.service.backend.DishService;
+import com.it.service.backend.SetmealService;
 import org.apache.commons.lang.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
-package com.it.mapper;
+package com.it.mapper.backend;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.it.entity.Setmeal;
+import com.it.entity.backend.Dish;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 
 @Mapper
-public interface SetmealMapper extends BaseMapper<Setmeal> {
+public interface DishMapper extends BaseMapper<Dish> {
 }

@@ -1,9 +1,9 @@
-package com.it.service.impl;
+package com.it.service.impl.backend;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.it.entity.Setmeal;
-import com.it.mapper.SetmealMapper;
-import com.it.service.SetmealService;
+import com.it.entity.backend.Setmeal;
+import com.it.mapper.backend.SetmealMapper;
+import com.it.service.backend.SetmealService;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,13 +1,16 @@
-package com.it.controller;
+package com.it.controller.backend;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.it.common.Result;
-import com.it.entity.Category;
-import com.it.service.CategoryService;
+import com.it.entity.backend.Category;
+import com.it.service.backend.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 分类控制层
@@ -96,6 +99,22 @@ public class CategoryController {
         log.info("修改分类信息，出参：{}", JSON.toJSONString(res));
 
         return res;
-        
+
+    }
+
+    @GetMapping("list")
+    public Result<List<Category>> dishList(Integer type) {
+
+        log.info("获取菜品分类，入参：{}", type);
+
+        List<Category> list = service.list(
+                new LambdaQueryWrapper<Category>().eq(Category::getType, type)
+                        .orderByDesc(Category::getSort)
+                        .orderByDesc(Category::getUpdateTime)
+        );
+
+        log.info("获取菜品分类，出参：{}", list);
+
+        return Result.success(list);
     }
 }

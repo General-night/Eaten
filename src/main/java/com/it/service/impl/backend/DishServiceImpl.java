@@ -1,9 +1,9 @@
-package com.it.service.impl;
+package com.it.service.impl.backend;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.it.entity.Dish;
-import com.it.mapper.DishMapper;
-import com.it.service.DishService;
+import com.it.entity.backend.Dish;
+import com.it.mapper.backend.DishMapper;
+import com.it.service.backend.DishService;
 import org.springframework.stereotype.Service;
 
 /**

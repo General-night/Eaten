@@ -1,9 +1,9 @@
-package com.it.service;
+package com.it.service.backend;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.it.common.Result;
-import com.it.entity.Category;
+import com.it.entity.backend.Category;
 
 /**
  * 分类业务层接口
