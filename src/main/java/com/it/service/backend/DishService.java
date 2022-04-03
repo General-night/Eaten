@@ -30,7 +30,6 @@ public interface DishService extends IService<Dish> {
      */
     Result<IPage<DishDto>> page(int page, int pageSize, String name);
 
-
     /**
      * 根据指定ID获取菜品信息
      *
@@ -38,4 +37,12 @@ public interface DishService extends IService<Dish> {
      * @return 菜品信息
      */
     Result<DishDto> getById(Long id);
+
+    /**
+     * 修改菜品信息
+     *
+     * @param dishDto 修改信息
+     * @return 是否修改成功
+     */
+    Result<String> update(DishDto dishDto);
 }

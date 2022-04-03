@@ -81,4 +81,23 @@ public class DishController {
 
         return res;
     }
+
+
+    /**
+     * 修改菜品信息
+     *
+     * @param dishDto 修改信息
+     * @return 是否修改成功
+     */
+    @PutMapping
+    public Result<String> update(@RequestBody DishDto dishDto) {
+
+        log.info("菜品管理-修改功能，入参：{}", JSON.toJSONString(dishDto));
+
+        Result<String> res = dishService.update(dishDto);
+
+        log.info("菜品管理-修改功能，出参：{}", JSON.toJSONString(res));
+
+        return res;
+    }
 }

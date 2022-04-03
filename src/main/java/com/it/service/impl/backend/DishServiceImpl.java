@@ -8,6 +8,7 @@ import com.it.common.Result;
 import com.it.dto.DishDto;
 import com.it.entity.backend.Dish;
 import com.it.entity.backend.DishFlavor;
+import com.it.exception.ConsumerException;
 import com.it.mapper.backend.DishMapper;
 import com.it.service.backend.CategoryService;
 import com.it.service.backend.DishFlavorService;
@@ -16,6 +17,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,7 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
      * @return 是否添加成功
      */
     @Override
+    @Transactional
     public Result<String> addWithFlavors(DishDto dishDto) {
 
         // 添加菜品
@@ -109,9 +112,10 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
 
         return Result.success(dishDtoPage);
     }
+    
 
     /**
-     * 根据指定ID获取菜品信息
+     * 根据指定ID获取菜品信息，用于回显
      *
      * @param id 指定ID值
      * @return 菜品信息
@@ -126,16 +130,44 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
                 new LambdaQueryWrapper<DishFlavor>().eq(DishFlavor::getDishId, id)
         );
 
-        // 获取菜品所属的分类名称
-        String categoryName = categoryService.getById(dish.getCategoryId()).getName();
-
         // 用dishDto传输数据
         DishDto dishDto = new DishDto();
         BeanUtils.copyProperties(dish, dishDto);
 
         dishDto.setFlavors(flavorList);
-        dishDto.setCategoryName(categoryName);
 
         return Result.success(dishDto);
+    }
+
+    /**
+     * 修改菜品信息
+     *
+     * @param dishDto 修改信息
+     * @return 是否修改成功
+     */
+    @Override
+    @Transactional
+    public Result<String> update(DishDto dishDto) {
+
+        try {
+            // 更新dish基本信息
+            updateById(dishDto);
+
+            // 获取更新后的菜品口味集合
+            List<DishFlavor> flavors = dishDto.getFlavors();
+
+            // 根据菜品ID删除原有的菜品口味
+            dishFlavorService.remove(
+                    new LambdaQueryWrapper<DishFlavor>().eq(DishFlavor::getDishId, dishDto.getId())
+            );
+
+            // 更新菜品口味表
+            dishFlavorService.saveBatch(flavors);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new ConsumerException("菜品名称已存在");
+        }
+
+        return Result.success("修改成功");
     }
 }
