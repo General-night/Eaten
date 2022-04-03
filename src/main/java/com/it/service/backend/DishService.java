@@ -29,4 +29,13 @@ public interface DishService extends IService<Dish> {
      * @return 菜品集合
      */
     Result<IPage<DishDto>> page(int page, int pageSize, String name);
+
+
+    /**
+     * 根据指定ID获取菜品信息
+     *
+     * @param id 指定ID值
+     * @return 菜品信息
+     */
+    Result<DishDto> getById(Long id);
 }

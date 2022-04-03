@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class DishController {
 
     @Autowired
-    private DishService service;
+    private DishService dishService;
 
     /**
      * 添加菜品
@@ -35,7 +35,7 @@ public class DishController {
 
         log.info("添加菜品，入参：{}", dishDto);
 
-        Result<String> res = service.addWithFlavors(dishDto);
+        Result<String> res = dishService.addWithFlavors(dishDto);
 
         log.info("添加菜品，出参：{}", res);
 
@@ -52,14 +52,32 @@ public class DishController {
      */
     @GetMapping("page")
     public Result<IPage<DishDto>> page(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-                                    @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
-                                    String name) {
+                                       @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+                                       String name) {
 
         log.info("菜品管理初始化，入参：page={}，pageSize={}，name={}", page, pageSize, name);
 
-        Result<IPage<DishDto>> res = service.page(page, pageSize, name);
+        Result<IPage<DishDto>> res = dishService.page(page, pageSize, name);
 
         log.info("菜品管理初始化，出参：{}", JSON.toJSONString(res));
+
+        return res;
+    }
+
+    /**
+     * 根据指定ID获取菜品信息
+     *
+     * @param id 指定ID值
+     * @return 菜品信息
+     */
+    @GetMapping("{id}")
+    public Result<DishDto> getById(@PathVariable Long id) {
+
+        log.info("菜品管理-根据ID获取菜品信息，入参：id = {}", id);
+
+        Result<DishDto> res = dishService.getById(id);
+
+        log.info("菜品管理-根据ID获取菜品信息，出参：{}", JSON.toJSONString(res));
 
         return res;
     }
