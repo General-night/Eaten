@@ -1,9 +1,11 @@
 package com.it.controller.backend;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.it.common.Result;
 import com.it.dto.SetmealDto;
+import com.it.entity.backend.Setmeal;
 import com.it.service.backend.SetmealService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,6 +129,42 @@ public class SetmealController {
         Result<String> res = service.deleteByIds(idList);
 
         log.info("套餐管理-删除，出参：{}", res);
+
+        return res;
+    }
+
+
+    /**
+     * 根据指定ID设置套餐销售状态
+     *
+     * @param flag   是否销售
+     * @param idsStr 指定的ID
+     * @return 是否设置成功
+     */
+    @PostMapping("status/{flag}")
+    public Result<String> updateStatus(@PathVariable Integer flag, @RequestParam("ids") String idsStr) {
+
+        log.info("套餐管理-状态，入参：flag={}，ids={}", flag, idsStr);
+
+        // 将前端传递的ID字符串转为集合
+        List<Long> idList = new ArrayList<>();
+
+        for (String id : idsStr.split(",")) {
+            idList.add(Long.valueOf(id));
+        }
+
+        Setmeal setmeal = new Setmeal();
+        setmeal.setStatus(flag);
+
+        // 批量更新套餐销售状态
+        service.update(setmeal,
+                new LambdaQueryWrapper<Setmeal>()
+                        .in(Setmeal::getId, idList)
+        );
+
+        Result<String> res = Result.success("切换成功");
+
+        log.info("套餐管理-状态，入参：{}", JSON.toJSONString(res));
 
         return res;
     }
