@@ -54,4 +54,12 @@ public interface DishService extends IService<Dish> {
      * @return 停售是否成功
      */
     Result<String> updateStatus(String flag, String[] idsStr);
+
+    /**
+     * 根据指定ID进行删除或批量删除
+     *
+     * @param ids 指定ID
+     * @return 是否删除成功
+     */
+    Result<String> deleteById(String[] ids);
 }

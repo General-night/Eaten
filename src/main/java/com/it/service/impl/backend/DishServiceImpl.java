@@ -50,7 +50,12 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
     public Result<String> addWithFlavors(DishDto dishDto) {
 
         // 添加菜品
-        save(dishDto);
+        try {
+            save(dishDto);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new ConsumerException("菜品名称已存在");
+        }
 
         // 添加菜品口味
         // 获取口味集合
@@ -189,6 +194,22 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
             updateById(dish);
         }
 
-        return Result.success(Objects.equals(flag, "1") ? "已起售":"已停售");
+        return Result.success(Objects.equals(flag, "1") ? "已起售" : "已停售");
+    }
+
+    /**
+     * 根据指定ID进行删除或批量删除
+     *
+     * @param ids 指定ID
+     * @return 是否删除成功
+     */
+    @Override
+    public Result<String> deleteById(String[] ids) {
+
+        for (String id : ids) {
+            removeById(Long.valueOf(id));
+        }
+
+        return Result.success("删除成功");
     }
 }

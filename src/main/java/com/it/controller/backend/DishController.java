@@ -123,4 +123,25 @@ public class DishController {
 
         return res;
     }
+
+
+    /**
+     * 根据指定ID进行删除或批量删除
+     *
+     * @param idsStr 指定ID
+     * @return 是否删除成功
+     */
+    @DeleteMapping
+    public Result<String> deleteById(@RequestParam("ids") String idsStr) {
+
+        log.info("菜单管理-删除，入参：{}", idsStr);
+
+        String[] ids = idsStr.split(",");
+
+        Result<String> res = dishService.deleteById(ids);
+
+        log.info("菜单管理-删除，出参：{}", res);
+
+        return res;
+    }
 }
