@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 菜品业务层实现类
@@ -112,7 +113,7 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
 
         return Result.success(dishDtoPage);
     }
-    
+
 
     /**
      * 根据指定ID获取菜品信息，用于回显
@@ -169,5 +170,25 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
         }
 
         return Result.success("修改成功");
+    }
+
+    /**
+     * 修改指定ID菜品的状态
+     *
+     * @param flag   是否停售
+     * @param idsStr 指定ID
+     * @return 停售是否成功
+     */
+    @Override
+    public Result<String> updateStatus(String flag, String[] idsStr) {
+
+        Dish dish = new Dish();
+        for (String id : idsStr) {
+            dish.setId(Long.valueOf(id));
+            dish.setStatus(Integer.valueOf(flag));
+            updateById(dish);
+        }
+
+        return Result.success(Objects.equals(flag, "1") ? "已起售":"已停售");
     }
 }

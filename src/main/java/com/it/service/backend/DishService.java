@@ -45,4 +45,13 @@ public interface DishService extends IService<Dish> {
      * @return 是否修改成功
      */
     Result<String> update(DishDto dishDto);
+
+    /**
+     * 修改指定ID菜品的状态
+     *
+     * @param flag   是否停售
+     * @param idsStr 指定ID
+     * @return 停售是否成功
+     */
+    Result<String> updateStatus(String flag, String[] idsStr);
 }

@@ -100,4 +100,27 @@ public class DishController {
 
         return res;
     }
+
+
+    /**
+     * 修改指定ID菜品的状态
+     *
+     * @param flag   是否停售
+     * @param idsStr 指定ID
+     * @return 停售是否成功
+     */
+    @PostMapping("status/{flag}")
+    public Result<String> updateStatus(@PathVariable String flag, @RequestParam("ids") String idsStr) {
+
+        log.info("菜品管理-修改状态，入参：flag={}，ids={}", flag, idsStr);
+
+        // 获取ID数组
+        String[] ids = idsStr.split(",");
+
+        Result<String> res = dishService.updateStatus(flag, ids);
+
+        log.info("菜品管理-修改状态，出参：{}", res);
+
+        return res;
+    }
 }
