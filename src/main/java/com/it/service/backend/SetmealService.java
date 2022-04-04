@@ -6,6 +6,8 @@ import com.it.common.Result;
 import com.it.dto.SetmealDto;
 import com.it.entity.backend.Setmeal;
 
+import java.util.List;
+
 /**
  * 套餐业务层接口
  *
@@ -51,4 +53,13 @@ public interface SetmealService extends IService<Setmeal> {
      * @return 是否修改成功
      */
     Result<String> updateById(SetmealDto setmealDto);
+
+
+    /**
+     * 根据指定ID删除套餐信息
+     *
+     * @param idList 指定的套餐ID
+     * @return 是否删除成功
+     */
+    Result<String> deleteByIds(List<Long> idList);
 }

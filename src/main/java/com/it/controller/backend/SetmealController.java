@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 套餐管理
  *
@@ -99,6 +102,31 @@ public class SetmealController {
         Result<String> res = service.updateById(setmealDto);
 
         log.info("套餐管理-修改套餐信息，出参：{}", JSON.toJSONString(res));
+
+        return res;
+    }
+
+
+    /**
+     * 根据指定ID删除套餐信息
+     *
+     * @param idsStr 指定的套餐ID
+     * @return 是否删除成功
+     */
+    @DeleteMapping
+    public Result<String> deleteByIds(@RequestParam("ids") String idsStr) {
+
+        log.info("套餐管理-删除，入参：ids={}", idsStr);
+
+        List<Long> idList = new ArrayList<>();
+
+        for (String id : idsStr.split(",")) {
+            idList.add(Long.valueOf(id));
+        }
+
+        Result<String> res = service.deleteByIds(idList);
+
+        log.info("套餐管理-删除，出参：{}", res);
 
         return res;
     }

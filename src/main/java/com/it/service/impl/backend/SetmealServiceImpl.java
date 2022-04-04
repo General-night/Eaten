@@ -174,4 +174,26 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
 
         return Result.success("修改成功");
     }
+
+    /**
+     * 根据指定ID删除套餐信息
+     *
+     * @param idList 指定的套餐ID
+     * @return 是否删除成功
+     */
+    @Override
+    @Transactional
+    public Result<String> deleteByIds(List<Long> idList) {
+
+        // 删除套餐表数据
+        removeByIds(idList);
+
+        // 删除套餐菜品表数据
+        setmealDishService.remove(
+                new LambdaQueryWrapper<SetmealDish>()
+                        .in(SetmealDish::getSetmealId, idList)
+        );
+
+        return Result.success("删除成功");
+    }
 }
