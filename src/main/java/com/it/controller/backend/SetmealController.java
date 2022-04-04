@@ -83,4 +83,23 @@ public class SetmealController {
 
         return res;
     }
+
+
+    /**
+     * 根据指定ID修改套餐信息
+     *
+     * @param setmealDto 修改信息
+     * @return 是否修改成功
+     */
+    @PutMapping
+    public Result<String> updateById(@RequestBody SetmealDto setmealDto) {
+
+        log.info("套餐管理-修改套餐信息，入参：{}", setmealDto);
+
+        Result<String> res = service.updateById(setmealDto);
+
+        log.info("套餐管理-修改套餐信息，出参：{}", JSON.toJSONString(res));
+
+        return res;
+    }
 }

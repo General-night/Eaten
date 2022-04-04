@@ -42,4 +42,13 @@ public interface SetmealService extends IService<Setmeal> {
      * @return 套餐信息
      */
     Result<SetmealDto> getById(Long id);
+
+
+    /**
+     * 根据指定ID修改套餐信息
+     *
+     * @param setmealDto 修改信息
+     * @return 是否修改成功
+     */
+    Result<String> updateById(SetmealDto setmealDto);
 }

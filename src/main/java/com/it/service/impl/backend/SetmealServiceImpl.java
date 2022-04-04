@@ -137,4 +137,41 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
 
         return Result.success(setmealDto);
     }
+
+    /**
+     * 根据指定ID修改套餐信息
+     *
+     * @param setmealDto 修改信息
+     * @return 是否修改成功
+     */
+    @Override
+    @Transactional
+    public Result<String> updateById(SetmealDto setmealDto) {
+
+        // 修改套餐基本信息
+        try {
+            super.updateById(setmealDto);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new ConsumerException("套餐名称已存在");
+        }
+
+        // 获取套餐ID
+        Long id = setmealDto.getId();
+
+        // 删除套餐菜品关联表中数据
+        setmealDishService.removeById(id);
+
+        // 设置套餐菜品的套餐ID
+        List<SetmealDish> setmealDishes = setmealDto.getSetmealDishes();
+
+        for (SetmealDish setmealDish : setmealDishes) {
+            setmealDish.setSetmealId(id);
+        }
+
+        // 插入新的套餐菜品数据
+        setmealDishService.saveBatch(setmealDishes);
+
+        return Result.success("修改成功");
+    }
 }
