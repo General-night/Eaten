@@ -7,10 +7,7 @@ import com.it.dto.SetmealDto;
 import com.it.service.backend.SetmealService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 套餐管理
@@ -45,6 +42,25 @@ public class SetmealController {
         Result<IPage<SetmealDto>> res = service.page(page, pageSize, name);
 
         log.info("套餐管理-初始化页面，出参：{}", JSON.toJSONString(res));
+
+        return res;
+    }
+
+
+    /**
+     * 添加套餐
+     *
+     * @param setmealDto 套餐信息
+     * @return 是否添加成功
+     */
+    @PostMapping
+    public Result<String> addSetmeal(@RequestBody SetmealDto setmealDto) {
+
+        log.info("套餐管理-添加套餐，入参：{}", JSON.toJSONString(setmealDto));
+
+        Result<String> res = service.addSetmeal(setmealDto);
+
+        log.info("套餐管理-添加套餐，出参：{}", JSON.toJSONString(res));
 
         return res;
     }

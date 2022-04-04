@@ -4,10 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.it.common.Result;
 import com.it.dto.DishDto;
+import com.it.entity.backend.Dish;
 import com.it.service.backend.DishService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 菜品分类控制层
@@ -141,6 +144,25 @@ public class DishController {
         Result<String> res = dishService.deleteById(ids);
 
         log.info("菜单管理-删除，出参：{}", res);
+
+        return res;
+    }
+
+
+    /**
+     * 根据指定ID查询对应的菜品
+     *
+     * @param categoryId 指定的菜品分类ID
+     * @return 菜品集合
+     */
+    @GetMapping("list")
+    public Result<List<Dish>> list(Long categoryId, String name) {
+
+        log.info("套餐管理-获取菜品列表，入参：{}", categoryId);
+
+        Result<List<Dish>> res = dishService.list(categoryId, name);
+
+        log.info("套餐管理-获取菜品列表，出参：{}", JSON.toJSONString(res));
 
         return res;
     }

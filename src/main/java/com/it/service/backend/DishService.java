@@ -6,6 +6,8 @@ import com.it.common.Result;
 import com.it.dto.DishDto;
 import com.it.entity.backend.Dish;
 
+import java.util.List;
+
 /**
  * @author NightGeneral
  * @date 2022/4/1 14:28
@@ -62,4 +64,13 @@ public interface DishService extends IService<Dish> {
      * @return 是否删除成功
      */
     Result<String> deleteById(String[] ids);
+
+
+    /**
+     * 根据指定ID查询对应的菜品
+     *
+     * @param categoryId 指定的菜品分类ID
+     * @return 菜品集合
+     */
+    Result<List<Dish>> list(Long categoryId, String name);
 }

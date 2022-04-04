@@ -24,4 +24,13 @@ public interface SetmealService extends IService<Setmeal> {
      * @return 套餐信息集合
      */
     Result<IPage<SetmealDto>> page(Integer page, Integer pageSize, String name);
+
+
+    /**
+     * 添加套餐
+     *
+     * @param setmealDto 套餐信息
+     * @return 是否添加成功
+     */
+    Result<String> addSetmeal(SetmealDto setmealDto);
 }

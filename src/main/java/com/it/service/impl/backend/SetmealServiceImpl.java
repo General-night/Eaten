@@ -8,8 +8,11 @@ import com.it.common.Result;
 import com.it.dto.SetmealDto;
 import com.it.entity.backend.Category;
 import com.it.entity.backend.Setmeal;
+import com.it.entity.backend.SetmealDish;
+import com.it.exception.ConsumerException;
 import com.it.mapper.backend.SetmealMapper;
 import com.it.service.backend.CategoryService;
+import com.it.service.backend.SetmealDishService;
 import com.it.service.backend.SetmealService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -31,6 +34,9 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private SetmealDishService setmealDishService;
 
     /**
      * 套餐管理，初始化页面
@@ -71,5 +77,38 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
         dtoPageInfo.setRecords(setmealDtoList);
 
         return Result.success(dtoPageInfo);
+    }
+
+    /**
+     * 添加套餐
+     *
+     * @param setmealDto 套餐信息
+     * @return 是否添加成功
+     */
+    @Override
+    public Result<String> addSetmeal(SetmealDto setmealDto) {
+
+        try {
+            // 添加套餐信息
+            save(setmealDto);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new ConsumerException("套餐名称已存在");
+        }
+
+        // 获取套餐中的菜品信息集合
+        List<SetmealDish> setmealDishes = setmealDto.getSetmealDishes();
+        // 获取套餐ID
+        Long id = setmealDto.getId();
+
+        // 遍历菜品集合，逐一添加套餐ID
+        for (SetmealDish setmealDish : setmealDishes) {
+            setmealDish.setSetmealId(id);
+        }
+
+        // 添加套餐与菜品中间表信息
+        setmealDishService.saveBatch(setmealDishes);
+
+        return Result.success("添加成功");
     }
 }

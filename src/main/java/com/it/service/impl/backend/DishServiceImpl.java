@@ -212,4 +212,23 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
 
         return Result.success("删除成功");
     }
+
+    /**
+     * 根据指定ID查询对应的菜品
+     *
+     * @param categoryId 指定的菜品分类ID
+     * @return 菜品集合
+     */
+    @Override
+    public Result<List<Dish>> list(Long categoryId, String name) {
+
+        List<Dish> dishList = list(
+                new LambdaQueryWrapper<Dish>()
+                        .eq(Dish::getCategoryId, categoryId)
+                        .or()
+                        .like(StringUtils.isNotBlank(name), Dish::getName, name)
+        );
+
+        return Result.success(dishList);
+    }
 }
