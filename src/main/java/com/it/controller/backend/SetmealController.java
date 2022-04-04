@@ -64,4 +64,23 @@ public class SetmealController {
 
         return res;
     }
+
+
+    /**
+     * 根据指定ID获取套餐信息
+     *
+     * @param id 指定套餐ID
+     * @return 套餐信息
+     */
+    @GetMapping("{id}")
+    public Result<SetmealDto> getById(@PathVariable Long id) {
+
+        log.info("套餐管理-数据回显，入参：id={}", id);
+
+        Result<SetmealDto> res = service.getById(id);
+
+        log.info("套餐管理-数据回显，出参：{}", JSON.toJSONString(res));
+
+        return res;
+    }
 }

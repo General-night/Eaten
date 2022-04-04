@@ -33,4 +33,13 @@ public interface SetmealService extends IService<Setmeal> {
      * @return 是否添加成功
      */
     Result<String> addSetmeal(SetmealDto setmealDto);
+
+
+    /**
+     * 根据指定ID获取套餐信息
+     *
+     * @param id 指定套餐ID
+     * @return 套餐信息
+     */
+    Result<SetmealDto> getById(Long id);
 }

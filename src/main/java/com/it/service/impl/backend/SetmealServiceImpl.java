@@ -18,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +87,7 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
      * @return 是否添加成功
      */
     @Override
+    @Transactional
     public Result<String> addSetmeal(SetmealDto setmealDto) {
 
         try {
@@ -110,5 +112,29 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
         setmealDishService.saveBatch(setmealDishes);
 
         return Result.success("添加成功");
+    }
+
+    /**
+     * 根据指定ID获取套餐信息
+     *
+     * @param id 指定套餐ID
+     * @return 套餐信息
+     */
+    @Override
+    public Result<SetmealDto> getById(Long id) {
+
+        Setmeal setmeal = super.getById(id);
+        SetmealDto setmealDto = new SetmealDto();
+
+        BeanUtils.copyProperties(setmeal, setmealDto);
+
+        List<SetmealDish> dishList = setmealDishService.list(
+                new LambdaQueryWrapper<SetmealDish>()
+                        .eq(SetmealDish::getSetmealId, id)
+        );
+
+        setmealDto.setSetmealDishes(dishList);
+
+        return Result.success(setmealDto);
     }
 }
