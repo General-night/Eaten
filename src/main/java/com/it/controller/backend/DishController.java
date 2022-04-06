@@ -156,6 +156,7 @@ public class DishController {
      * @return 菜品集合
      */
     @GetMapping("list")
+    // 这里可以用 Dish来接参数
     public Result<List<Dish>> list(Long categoryId, String name) {
 
         log.info("套餐管理-获取菜品列表，入参：{}", categoryId);

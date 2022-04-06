@@ -185,6 +185,8 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
     @Transactional
     public Result<String> deleteByIds(List<Long> idList) {
 
+        // 查询套餐状态，确定是否可用删除
+
         // 删除套餐表数据
         removeByIds(idList);
 

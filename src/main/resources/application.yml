@@ -1,6 +1,7 @@
 server:
   port: 8080
 
+# 数据源配置
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -9,6 +10,7 @@ spring:
     password: flzx3QC
     type: com.alibaba.druid.pool.DruidDataSource
 
+# mybatis-plus
 mybatis-plus:
   global-config:
     db-config:
@@ -21,3 +23,10 @@ mybatis-plus:
 # 服务器存储菜品样片绝对位置
 reggie:
   dish-picture: D:\JavaBase\reggie\reggie_take_out\src\main\resources\upload\
+
+# 阿里云短信服务参数配置
+sms:
+  signName: 蟒蛇个人博客
+  templateCode: SMS_205471053
+  accessKeyId: LTAI5tHvpK8WnZLdJCTdt8vm
+  accessKeySecret: P9ziQuc0SCJrvyQhdZNA1f1vMrTTpm

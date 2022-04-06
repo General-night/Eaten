@@ -222,6 +222,7 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
     @Override
     public Result<List<Dish>> list(Long categoryId, String name) {
 
+        // 停售的菜品（status=1）不应该被查询出来
         List<Dish> dishList = list(
                 new LambdaQueryWrapper<Dish>()
                         .eq(Dish::getCategoryId, categoryId)
