@@ -29,6 +29,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         // 自动填充创建、修改者
         metaObject.setValue("createUser", session.getAttribute("empId"));
         metaObject.setValue("updateUser", session.getAttribute("empId"));
+        metaObject.setValue("createUser", session.getAttribute("user"));
+        metaObject.setValue("updateUser", session.getAttribute("user"));
     }
 
     @Override
@@ -38,5 +40,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
         //自动填充修改者
         metaObject.setValue("updateUser", session.getAttribute("empId"));
+        metaObject.setValue("updateUser", session.getAttribute("user"));
     }
 }

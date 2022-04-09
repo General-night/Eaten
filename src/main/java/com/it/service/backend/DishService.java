@@ -72,5 +72,5 @@ public interface DishService extends IService<Dish> {
      * @param categoryId 指定的菜品分类ID
      * @return 菜品集合
      */
-    Result<List<Dish>> list(Long categoryId, String name);
+    Result<List<DishDto>> list(Long categoryId, String name);
 }

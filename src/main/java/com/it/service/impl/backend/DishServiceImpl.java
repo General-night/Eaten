@@ -220,7 +220,7 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
      * @return 菜品集合
      */
     @Override
-    public Result<List<Dish>> list(Long categoryId, String name) {
+    public Result<List<DishDto>> list(Long categoryId, String name) {
 
         // 停售的菜品（status=1）不应该被查询出来
         List<Dish> dishList = list(
@@ -230,6 +230,20 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
                         .like(StringUtils.isNotBlank(name), Dish::getName, name)
         );
 
-        return Result.success(dishList);
+        List<DishDto> dishDtoList = new ArrayList<>();
+
+        for (Dish dish : dishList) {
+            DishDto dishDto = new DishDto();
+
+            BeanUtils.copyProperties(dish, dishDto);
+            List<DishFlavor> dishFlavors = dishFlavorService.list(
+                    new LambdaQueryWrapper<DishFlavor>()
+                            .eq(DishFlavor::getDishId, dish.getId())
+            );
+            dishDto.setFlavors(dishFlavors);
+            dishDtoList.add(dishDto);
+        }
+
+        return Result.success(dishDtoList);
     }
 }

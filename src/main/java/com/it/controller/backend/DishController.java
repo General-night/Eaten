@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.it.common.Result;
 import com.it.dto.DishDto;
-import com.it.entity.backend.Dish;
 import com.it.service.backend.DishService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -157,11 +156,11 @@ public class DishController {
      */
     @GetMapping("list")
     // 这里可以用 Dish来接参数
-    public Result<List<Dish>> list(Long categoryId, String name) {
+    public Result<List<DishDto>> list(Long categoryId, String name) {
 
         log.info("套餐管理-获取菜品列表，入参：{}", categoryId);
 
-        Result<List<Dish>> res = dishService.list(categoryId, name);
+        Result<List<DishDto>> res = dishService.list(categoryId, name);
 
         log.info("套餐管理-获取菜品列表，出参：{}", JSON.toJSONString(res));
 

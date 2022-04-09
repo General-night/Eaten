@@ -7,6 +7,7 @@ import com.it.common.Result;
 import com.it.entity.backend.Category;
 import com.it.service.backend.CategoryService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -108,7 +109,7 @@ public class CategoryController {
         log.info("获取菜品分类，入参：{}", type);
 
         List<Category> list = service.list(
-                new LambdaQueryWrapper<Category>().eq(Category::getType, type)
+                new LambdaQueryWrapper<Category>().eq(!ObjectUtils.equals(type, null), Category::getType, type)
                         .orderByDesc(Category::getSort)
                         .orderByDesc(Category::getUpdateTime)
         );

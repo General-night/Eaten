@@ -69,11 +69,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String code = params.get("code");
 
         // 2、获取redis中的key
-        String codeKey = "CHECK" + phone;
+        String codeKey = "CHECK_" + phone;
         String value = redisTemplate.opsForValue().get(codeKey);
-        if (StringUtils.isNotBlank(value)) {
+        if (!StringUtils.isNotBlank(value)) {
             return Result.error("验证码无效");
-        } else if (StringUtils.equals(code, value)) {
+        } else if (!StringUtils.equals(code, value)) {
             return Result.error("验证码错误");
         }
 

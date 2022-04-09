@@ -168,4 +168,24 @@ public class SetmealController {
 
         return res;
     }
+
+
+    /**
+     * 根据指定ID获取套餐下的菜品信息
+     *
+     * @param setmeal 指定的套餐信息
+     * @return 套餐下菜品信息集合
+     */
+    @GetMapping("list")
+    public Result<List<Setmeal>> list(Setmeal setmeal) {
+
+        List<Setmeal> setmealList = service.list(
+                new LambdaQueryWrapper<Setmeal>()
+                        .eq(Setmeal::getCategoryId, setmeal.getCategoryId())
+                        .eq(Setmeal::getStatus, setmeal.getStatus())
+                        .orderByDesc(Setmeal::getUpdateTime)
+        );
+
+        return Result.success(setmealList);
+    }
 }
