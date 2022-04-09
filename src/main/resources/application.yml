@@ -24,7 +24,7 @@ mybatis-plus:
 # 服务器存储菜品样片绝对位置
 reggie:
 #  dish-picture: D:\JavaBase\reggie\reggie_take_out\src\main\resources\upload\
-  dish-picture: /opt/webapp/reggie/src/main/resources/upload
+  dish-picture: /opt/webapp/reggie/src/main/resources/upload/
 
 # 阿里云短信服务参数配置
 sms:
